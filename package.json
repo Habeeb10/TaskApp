@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@ant-design/icons-react-native": "^2.3.1",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/native": "^5.x",
     "@react-navigation/stack": "^5.x",
@@ -20,7 +21,10 @@
     "react": "17.0.2",
     "react-native": "0.65.1",
     "react-native-elements": "^3.4.2",
+    "react-native-fast-image": "^8.3.7",
     "react-native-gesture-handler": "^1.10.3",
+    "react-native-image-slider": "^2.0.3",
+    "react-native-image-slider-box": "^1.1.7",
     "react-native-keyboard-aware-scrollview": "^2.1.0",
     "react-native-modal": "^13.0.0",
     "react-native-reanimated": "^2.3.0",

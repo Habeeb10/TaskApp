@@ -1,8 +1,13 @@
 import {SafeAreaView, View, StyleSheet} from 'react-native';
 import React from 'react';
 import {ScrollView} from 'react-native';
+import colors from '../common/colors';
 
-export const Container = ({children, barColor = 'red', backgroundColor}) => {
+export const Container = ({
+  children,
+  barColor = {color: colors.white},
+  backgroundColor,
+}) => {
   return (
     <>
       <ScrollView

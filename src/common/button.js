@@ -1,26 +1,41 @@
 import React from 'react';
 import colors from './colors';
 import {Button as RNButton} from 'react-native-elements';
-import {wp} from './utils';
-import {StyleSheet} from 'react-native';
+import {hp, wp} from './utils';
+import {StyleSheet, ActivityIndicator} from 'react-native';
+import {Text} from 'react-native';
 
-export const Button = ({title, onPress}) => {
+export const Button = ({title, Style, loading, onPress}) => {
   return (
     <RNButton
       onPress={onPress}
-      title={title}
-      buttonStyle={styles.buttonStyle}
-      containerStyle={styles.containerStyle}
+      title={
+        loading ? (
+          <ActivityIndicator
+            size="small"
+            color="orange"
+            style={styles.button}
+          />
+        ) : (
+          <Text style={styles.title}>{title}</Text>
+        )
+      }
+      buttonStyle={[styles.buttonStyle, Style]}
     />
   );
 };
 
 const styles = StyleSheet.create({
-  containerStyle: {
-    width: wp(100),
+  title: {
+    fontSize: hp(14),
+    fontWeight: '400',
+    color: colors.white,
   },
+  button: {marginTop: 10},
   buttonStyle: {
     backgroundColor: colors.purple,
     borderRadius: 3,
+    width: wp(72.5),
+    height: hp(32.5),
   },
 });
