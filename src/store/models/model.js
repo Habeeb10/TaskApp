@@ -89,6 +89,7 @@ export const allNews = {
     },
 
     addNews(data) {
+      this.SETLOADING(true);
       axios({
         method: 'POST',
         url: `${baseUrl}`,
@@ -99,6 +100,7 @@ export const allNews = {
           this.loadData();
         })
         .catch(err => err);
+      this.SETLOADING(false);
     },
 
     getNewsById(id) {
@@ -110,11 +112,12 @@ export const allNews = {
         .then(res => {
           this.SET_NEWS(res.data);
         })
-        .catch(err => err)
-        .finally(() => this.SETLOADING(false));
+        .catch(err => err);
+      this.SETLOADING(false);
     },
 
     addComment(data, id) {
+      this.SETLOADING(true);
       axios({
         method: 'POST',
         url: `${baseUrl}/${id}/comments`,
@@ -125,20 +128,36 @@ export const allNews = {
           this.comments();
         })
         .catch(err => err);
+      this.SETLOADING(false);
     },
 
-    editComment(data, id) {
+    editComment(data, id, commentId) {
+      this.SETLOADING(true);
       axios({
         method: 'PUT',
-        url: `${baseUrl}/${id}/comments/${id}`,
+        url: `${baseUrl}/${id}/comments/${commentId}`,
         headers,
         data,
       })
         .then(res => {
-          console.log(res, 'jjjjjjkj');
           this.comments();
         })
         .catch(err => err);
+      this.SETLOADING(false);
+    },
+    deleteComment(data, id, deleteId) {
+      this.SETLOADING(true);
+      axios({
+        method: 'DELETE',
+        url: `${baseUrl}/${id}/comments/${deleteId}`,
+        headers,
+        data,
+      })
+        .then(res => {
+          this.comments();
+        })
+        .catch(err => err);
+      this.SETLOADING(false);
     },
   }),
 };

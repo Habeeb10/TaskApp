@@ -9,12 +9,15 @@ export const displayNewsstyles = StyleSheet.create({
     padding: hp(50),
     flex: 1,
   },
+  editModalBox: {
+    height: hp(130),
+  },
   modalStyle: {
     backgroundColor: colors.white,
     bottom: hp(0),
     left: hp(0),
     right: hp(0),
-    height: hp(250),
+    height: hp(200),
     borderRadius: hp(10),
   },
   currentNews: {

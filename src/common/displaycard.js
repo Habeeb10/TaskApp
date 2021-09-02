@@ -4,12 +4,12 @@ import {hp, wp} from './utils';
 import colors from '../common/colors';
 import {DeleteIcon, EditIcon} from '../../assets/svg';
 
-export const DisplayCard = ({comment, image, onEdit, onDelete}) => {
+export const DisplayCard = ({comment, image, onEdit, onDelete, isEditing}) => {
   return (
     <View style={styles.container}>
       <View style={styles.leftSide}>
         <Image source={{uri: image}} style={styles.image} />
-        <Text style={styles.comment}>{comment}</Text>
+        {isEditing ? null : <Text style={styles.comment}>{comment}</Text>}
       </View>
       <View style={styles.rightSide}>
         <TouchableOpacity activeOpacity={0.5} onPress={onEdit}>

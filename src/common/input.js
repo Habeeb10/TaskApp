@@ -4,9 +4,9 @@ import {TextInput} from 'react-native';
 import colors from '../common/colors';
 import {hp, wp} from './utils';
 
-export const Input = ({placeholder, value, onChange}) => {
+export const Input = ({placeholder, value, onChange, style}) => {
   return (
-    <View style={styles.inputContainer}>
+    <View style={[styles.inputContainer, style]}>
       <TextInput
         placeholder={placeholder}
         value={value}

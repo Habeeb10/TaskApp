@@ -17,10 +17,11 @@ export default function Display({navigation, route}) {
     state => state.allNews,
   );
   const [editcommentModal, seteditcommentModalState] = useState(false);
+  const [editcommentModal1, seteditcommentModalState1] = useState(false);
 
   const [name, setName] = useState('');
-  const [newavatar, setNewAvatar] = useState('');
   const [newcomment, setNewComment] = useState('');
+  const [edit, setEdit] = useState(false);
 
   const {id} = route.params;
 
@@ -34,7 +35,18 @@ export default function Display({navigation, route}) {
 
   const _renderItem = ({item}) => {
     const {comment, avatar} = item;
-    return <DisplayCard comment={comment} image={avatar} />;
+    return (
+      <DisplayCard
+        comment={comment}
+        image={avatar}
+        onEdit={() => {
+          seteditcommentModalState1(true);
+        }}
+        onDelete={() => {
+          deleteComment(id);
+        }}
+      />
+    );
   };
 
   const addNewComment = () => {
@@ -43,7 +55,7 @@ export default function Display({navigation, route}) {
       raw: {
         newsId: {id},
         name: name,
-        avatar: newavatar,
+        avatar: 'http://lorempixel.com/640/480/fashion',
         comment: newcomment,
       },
 
@@ -55,12 +67,10 @@ export default function Display({navigation, route}) {
     };
     dispatch.allNews.addComment(data, id);
   };
-  const editedComment = () => {
+  const editComment = valueId => {
     const data = {
       mode: 'raw',
       raw: {
-        name: name,
-        avatar: newavatar,
         comment: newcomment,
       },
 
@@ -70,7 +80,22 @@ export default function Display({navigation, route}) {
         },
       },
     };
-    dispatch.allNews.editComment(data, id);
+    dispatch.allNews.editComment(data, id, valueId);
+  };
+  const deleteComment = valueId => {
+    const data = {
+      mode: 'raw',
+      raw: {
+        comment: comments,
+      },
+
+      options: {
+        raw: {
+          language: 'json',
+        },
+      },
+    };
+    dispatch.allNews.deleteComment(data, id, valueId);
   };
 
   if (loading) {
@@ -116,22 +141,31 @@ export default function Display({navigation, route}) {
           addNewComment();
           seteditcommentModalState(false);
           setName('');
-          setNewAvatar('');
           setNewComment('');
         }}>
         <View style={styles.modalStyle}>
           <View style={styles.modalBox}>
             <Input value={name} onChange={setName} placeholder="name" />
-            <Input
-              value={newavatar}
-              onChange={setNewAvatar}
-              placeholder="avatar"
-            />
+
             <Input
               value={newcomment}
               onChange={setNewComment}
               placeholder="add your comment"
             />
+          </View>
+        </View>
+      </ModalComponent>
+      <ModalComponent
+        style={styles.editModalBox}
+        title="Ok"
+        isVisible={editcommentModal1}
+        closeModal={() => {
+          editComment();
+          seteditcommentModalState1(false);
+        }}>
+        <View style={styles.modalStyle}>
+          <View style={styles.modalBox}>
+            <Input value={edit} onChange={setEdit} placeholder={newcomment} />
           </View>
         </View>
       </ModalComponent>
